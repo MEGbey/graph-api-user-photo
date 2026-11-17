@@ -1,0 +1,204 @@
+{
+  "info": {
+    "_postman_id": "9dece60f-f67a-4cb2-b6a6-275df885a6b1",
+    "name": "Graph API - User Photo",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "60253417",
+    "_collection_link": "https://go.postman.co/collection/60253417-9dece60f-f67a-4cb2-b6a6-275df885a6b1?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Get Authorization Code",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=de8bc8b5-d9f9-48b1-a8ad-b748da725064&response_type=code&redirect_uri=https://developer.microsoft.com/en-us/graph/graph-explorer&response_mode=query&scope=openid%20profile%20User.Read&code_challenge=E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM&code_challenge_method=S256",
+          "protocol": "https",
+          "host": [
+            "login",
+            "microsoftonline",
+            "com"
+          ],
+          "path": [
+            "common",
+            "oauth2",
+            "v2.0",
+            "authorize"
+          ],
+          "query": [
+            {
+              "key": "client_id",
+              "value": "de8bc8b5-d9f9-48b1-a8ad-b748da725064"
+            },
+            {
+              "key": "response_type",
+              "value": "code"
+            },
+            {
+              "key": "redirect_uri",
+              "value": "https://developer.microsoft.com/en-us/graph/graph-explorer"
+            },
+            {
+              "key": "response_mode",
+              "value": "query"
+            },
+            {
+              "key": "scope",
+              "value": "openid%20profile%20User.Read"
+            },
+            {
+              "key": "code_challenge",
+              "value": "E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM"
+            },
+            {
+              "key": "code_challenge_method",
+              "value": "S256"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Exchange Code for Token",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Origin",
+            "value": "https://developer.microsoft.com"
+          }
+        ],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "client_id",
+              "value": "de8bc8b5-d9f9-48b1-a8ad-b748da725064"
+            },
+            {
+              "key": "grant_type",
+              "value": "authorization_code"
+            },
+            {
+              "key": "redirect_uri",
+              "value": "https://developer.microsoft.com/en-us/graph/graph-explorer"
+            },
+            {
+              "key": "scope",
+              "value": "openid profile User.Read"
+            },
+            {
+              "key": "code_verifier",
+              "value": "dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk"
+            },
+            {
+              "key": "code",
+              "value": "{{authorization_code}}"
+            }
+          ]
+        },
+        "url": {
+          "raw": "https://login.microsoftonline.com/common/oauth2/v2.0/token",
+          "protocol": "https",
+          "host": [
+            "login",
+            "microsoftonline",
+            "com"
+          ],
+          "path": [
+            "common",
+            "oauth2",
+            "v2.0",
+            "token"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Current User Photo",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          }
+        ],
+        "url": {
+          "raw": "https://graph.microsoft.com/v1.0/me/photo/$value",
+          "protocol": "https",
+          "host": [
+            "graph",
+            "microsoft",
+            "com"
+          ],
+          "path": [
+            "v1.0",
+            "me",
+            "photo",
+            "$value"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "clientId",
+        "value": "de8bc8b5-d9f9-48b1-a8ad-b748da725064",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://login.microsoftonline.com/common/oauth2/v2.0/token",
+        "type": "string"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
+        "type": "string"
+      },
+      {
+        "key": "tokenName",
+        "value": "Graph_CodeFlow_Token",
+        "type": "string"
+      },
+      {
+        "key": "addTokenTo",
+        "value": "header",
+        "type": "string"
+      },
+      {
+        "key": "scope",
+        "value": "openid profile User.Read",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code_with_pkce",
+        "type": "string"
+      },
+      {
+        "key": "client_authentication",
+        "value": "body",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "authorization_code",
+      "value": ""
+    },
+    {
+      "key": "access_token",
+      "value": ""
+    }
+  ]
+}}
